@@ -1,0 +1,11 @@
+{
+  "name": "revision",
+  "version": "1.0.0",
+  "description": "revision for the setting up our first server",
+  "main": "revision.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luv Ratan",
+  "license": "ISC"
+}
