@@ -9,16 +9,34 @@ const port = 8000;
 //usually the naming convention in app
 //we call express as a function. Now this app has all the functionalities of express which are needed to run the express js server.
 const app = express();
+const fs = require('fs');
+
+
 
 
 
 //returning a response from the server
 
 
+
+
+
+// app.get('/', function(req, res){
+//     // console.log(req);
+//     res.send('<h1>Cool, it is running!</h1>');
+// });
+
 app.get('/', function(req, res){
-    console.log(req);
-    res.send('<h1>Cool, it is running!</h1>');
+
+    fs.readFile('./index.html', function(err, data){
+
+      
+        res.send(`<${data}>`);
+       
+    })
 })
+
+
 
 
 
