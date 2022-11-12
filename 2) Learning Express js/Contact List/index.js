@@ -1,6 +1,8 @@
 //we need to require express js just like any other library
 
 const express = require('express');
+const path = require('path'); //path is an inbuit module in node, so we do not need to require it.
+
 
 //obviously server runs on a port so 
 const port = 8000;
@@ -9,7 +11,18 @@ const port = 8000;
 //usually the naming convention in app
 //we call express as a function. Now this app has all the functionalities of express which are needed to run the express js server.
 const app = express();
-const fs = require('fs');
+
+//First we need to tell express that EJS will be the template engine that we will be using.
+
+
+app.set('view engine', 'ejs'); //we do not need to require anything, it will find it out on it's own
+//also this is setting a value to the view part of the MVC structure of our application
+//view is the part that is viewed by the user and so is the template.
+//we have setted up the view engine, now we will setup the view files.
+//this app.set() will search for a folder name view in the contact list folder and join it with the view of our application.
+app.set('views', path.join(__dirname, 'views')); 
+
+//after that I need to provide with a path where I will be placing my templates(html files)
 
 
 
@@ -18,23 +31,18 @@ const fs = require('fs');
 //returning a response from the server
 
 
-
-
-
-// app.get('/', function(req, res){
-//     // console.log(req);
-//     res.send('<h1>Cool, it is running!</h1>');
-// });
-
 app.get('/', function(req, res){
+    // console.log(req);
+    // console.log(__dirname); the folder in which our app is running
+    // console.log(__filename); the entry file of our application
 
-    fs.readFile('./index.html', function(err, data){
 
-      
-        res.send(`<${data}>`);
-       
-    })
-})
+    //To send a data, we will create an object with key value pairs. 
+    //This is kinda same as passing props in react JS
+    return res.render('index', {title: 'My Contacts List'});
+});
+
+
 
 
 
