@@ -31,6 +31,8 @@ app.set('views', path.join(__dirname, 'views'));
 //returning a response from the server
 
 
+
+//THIS IS A CONTROLLER
 app.get('/', function(req, res){
     // console.log(req);
     // console.log(__dirname); the folder in which our app is running
@@ -43,6 +45,17 @@ app.get('/', function(req, res){
 });
 
 
+
+//This is another controller
+
+app.get('/playground', function(req,res){
+
+    console.log(res)
+    return res.render('practice', 
+    {
+        title: 'Let us play with EJS',
+    })
+})
 
 
 

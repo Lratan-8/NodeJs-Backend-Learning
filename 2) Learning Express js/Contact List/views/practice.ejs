@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>
+            <%= locals.title %>
+
+        </title>
+
+    </head>
+    <body>
+
+        <h1>Playground</h1>
+
+        <ul>
+            <% for (let i = 0; i<5; i++) { %>
+                <li>
+                    <%= i %>
+                </li>
+            <%} %>
+          
+        </ul>
+
+        <% if (true){
+            console.log("Yes, this is working");
+        } %>
+
+        <!-- we can also do like this -->
+
+        <% console.log("Hello world")%> <% if (true){ %>
+
+            <h1>It's true</h1>
+
+            <%} else {%>
+
+                <p>It is false</p>
+
+            <%}%>
+
+            
+        
+    </body>
+</html>
