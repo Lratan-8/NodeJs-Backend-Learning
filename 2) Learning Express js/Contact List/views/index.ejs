@@ -1,11 +1,38 @@
 <html>
-    <head>
-        <title>
-            <%= title %>
-        </title>
 
-    </head>
-    <body>
-        <h1>Hello Darkness, My Old friend</h1>
-    </body>
+<head>
+    <title>
+        <%= title %>
+    </title>
+
+</head>
+
+<body>
+    <h1>Hello Darkness, My Old friend</h1>
+
+    <div>
+        <ul>
+
+            <% for(let i of contacts_List) { %>
+
+                <li>
+                    <p>
+                        <%= i.name %>
+                    </p>
+                    <p>
+                        <%= i.phone %>
+                    </p>
+                </li>
+
+                <% } %>
+
+        </ul>
+    </div>
+
+
+    <form action="">
+
+    </form>
+</body>
+
 </html>

@@ -20,9 +20,28 @@ app.set('view engine', 'ejs'); //we do not need to require anything, it will fin
 //view is the part that is viewed by the user and so is the template.
 //we have setted up the view engine, now we will setup the view files.
 //this app.set() will search for a folder name view in the contact list folder and join it with the view of our application.
+//after that I need to provide with a path where I will be placing my templates(html files)
 app.set('views', path.join(__dirname, 'views')); 
 
-//after that I need to provide with a path where I will be placing my templates(html files)
+
+
+//we will now make a global variable which will be available to every function in this file.
+
+let contactList = [
+    {
+        name: "Luv Ratan",
+        phone: '8476986255'
+    },
+    {
+        name: "John Wick",
+        phone: "6666666666"
+    },
+    {
+        name: "Naruto Uzumaki",
+        phone: "1010101010"
+
+    }
+] 
 
 
 
@@ -41,7 +60,10 @@ app.get('/', function(req, res){
 
     //To send a data, we will create an object with key value pairs. 
     //This is kinda same as passing props in react JS
-    return res.render('index', {title: 'My Contacts List'});
+    return res.render('index', {
+        title: 'My Contacts List',
+        contacts_List : contactList
+    });
 });
 
 
@@ -50,7 +72,7 @@ app.get('/', function(req, res){
 
 app.get('/playground', function(req,res){
 
-    console.log(res)
+
     return res.render('practice', 
     {
         title: 'Let us play with EJS',
