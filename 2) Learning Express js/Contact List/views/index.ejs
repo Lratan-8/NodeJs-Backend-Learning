@@ -29,9 +29,21 @@
         </ul>
     </div>
 
+    <!-- we will create a form here to take data from the user and send it to the server. -->
+    <!-- action signifies where we want to send the data(url/route). -->
+    <!-- when we send data to the server, it will send it in the form of an object.
+    So this object has key value pairs. So the "name" attribute is the key in that data, 
+    and the value extracted from the input field/tag is the value of the key value pair.
+    So this is how the name attribute works. -->
+<!-- 
+    action - When this forms submits some data, that data should be going to the index.js.
+             But to access that in the index.js, we have to have reference. That reference
+             is the action.  -->
 
-    <form action="">
-
+    <form action="/create_contact" method="POST">
+        <input type="text" name="name" placeholder="Enter Name" required>
+        <input type="number" name="phone" maxlength="10" placeholder="Enter Phone" required>
+        <button type="submit" style="cursor: pointer;">Add Contact</button>
     </form>
 </body>
 

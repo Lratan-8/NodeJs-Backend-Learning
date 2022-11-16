@@ -1,5 +1,7 @@
 //we need to require express js just like any other library
 
+const bodyParser = require('body-parser');
+const { application } = require('express');
 const express = require('express');
 const path = require('path'); //path is an inbuit module in node, so we do not need to require it.
 
@@ -22,6 +24,8 @@ app.set('view engine', 'ejs'); //we do not need to require anything, it will fin
 //this app.set() will search for a folder name view in the contact list folder and join it with the view of our application.
 //after that I need to provide with a path where I will be placing my templates(html files)
 app.set('views', path.join(__dirname, 'views')); 
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 
 
@@ -77,6 +81,21 @@ app.get('/playground', function(req,res){
     {
         title: 'Let us play with EJS',
     })
+});
+
+
+
+//getting data from the input field- The reference to get that data is the /create_contact route.
+
+//The app.post() method routes all the HTTP POST requests to the specified path with the specified callback functions
+
+
+app.post('/create_contact', function(req, res){
+   //for now we are just redirecting the user to some other page.
+   console.log(req.body);
+   contactList= [...contactList,req.body];
+   console.log(contactList);
+    return res.redirect("/"); //after the request is completed, please redirect me to this route. "/" this homes and "back" also means home
 })
 
 
