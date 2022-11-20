@@ -24,13 +24,49 @@ app.set('view engine', 'ejs'); //we do not need to require anything, it will fin
 //this app.set() will search for a folder name view in the contact list folder and join it with the view of our application.
 //after that I need to provide with a path where I will be placing my templates(html files)
 app.set('views', path.join(__dirname, 'views')); 
+
+
+//middlewareA
 app.use(bodyParser.urlencoded({extended: true}));
+//middlewareB
 app.use(bodyParser.json());
 
 
 
-//we will now make a global variable which will be available to every function in this file.
 
+//middlewareC
+/*this function by default takes in three arguments. 
+Next passes on whatever the changes has been made and calls the next middleware,
+if there is one, else it will go on to the next controller. */
+app.use(function(req, res, next){
+
+    req.myName = "Luv";
+
+    console.log("Middleware C called.");
+    next();                                 //we need to call this next otherwise it will not move on to the next middleware or controller.
+
+});
+
+
+//middlewareD
+
+app.use(function(req, res, next){
+    console.log("Middleware D called");
+    console.log(req.myName)
+    next();
+})
+
+
+/*middlewareE - 
+
+This middleware is provided to us by express js that helps us read the static files.
+this function will now search for assets folder inside our contact list application on the same level. */
+
+app.use(express.static('assets'));
+
+
+//we will now make a global variable which will be available to every function in this file.
+ 
 let contactList = [
     {
         name: "Luv Ratan",
@@ -75,6 +111,7 @@ app.get('/', function(req, res){
 //This is another controller
 
 app.get('/playground', function(req,res){
+    console.log(req.myName)
 
 
     return res.render('practice', 
@@ -110,7 +147,7 @@ app.post('/create_contact', function(req, res){
 
 
 
-
+ 
 
 
 
