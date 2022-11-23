@@ -42,7 +42,7 @@ app.use(function(req, res, next){
 
     req.myName = "Luv";
 
-    console.log("Middleware C called.");
+    // console.log("Middleware C called.");
     next();                                 //we need to call this next otherwise it will not move on to the next middleware or controller.
 
 });
@@ -51,8 +51,8 @@ app.use(function(req, res, next){
 //middlewareD
 
 app.use(function(req, res, next){
-    console.log("Middleware D called");
-    console.log(req.myName)
+    // console.log("Middleware D called");
+    // console.log(req.myName)
     next();
 })
 
@@ -133,7 +133,31 @@ app.post('/create_contact', function(req, res){
    contactList= [...contactList,req.body];
    console.log(contactList);
     return res.redirect("/"); //after the request is completed, please redirect me to this route. "/" this homes and "back" also means home
-})
+});
+
+
+//controller to delete a contact from the list
+
+app.get('/delete-contact', function(req, res){
+
+    //getting string from the url
+    // let phone = req.params.phone;
+
+
+    //now let us use it in query parameter.
+    //getting query from the url
+    let phone = req.query.phone;
+    contactIndex = contactList.findIndex(contact => contact.phone == phone);
+    console.log(contactIndex);
+
+    if(contactIndex != -1){
+        contactList.splice(contactIndex, 1);
+    };
+
+    // return res.redirect("/")
+
+    
+});
 
 
 
