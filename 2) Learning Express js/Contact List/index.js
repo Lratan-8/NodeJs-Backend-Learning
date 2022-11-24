@@ -9,6 +9,11 @@ const path = require('path'); //path is an inbuit module in node, so we do not n
 //obviously server runs on a port so 
 const port = 8000;
 
+
+const db = require("./config/mongoose");
+
+const Contact = require('./models/contact')
+
 //moving on we need to fire up express to use it functionalities
 //usually the naming convention in app
 //we call express as a function. Now this app has all the functionalities of express which are needed to run the express js server.
@@ -148,33 +153,15 @@ app.get('/delete-contact', function(req, res){
     //getting query from the url
     let phone = req.query.phone;
     contactIndex = contactList.findIndex(contact => contact.phone == phone);
-    console.log(contactIndex);
 
     if(contactIndex != -1){
         contactList.splice(contactIndex, 1);
     };
 
-    // return res.redirect("/")
+    return res.redirect("/");
 
     
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
 
 app.listen(port, function(err){
 
