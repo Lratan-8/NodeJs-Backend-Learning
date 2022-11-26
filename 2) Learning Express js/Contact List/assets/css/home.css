@@ -2,10 +2,48 @@ body{
     text-align: center;
     margin: 0;
     font-family: sans-serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
 }
 
 #page-heading{
     text-align: center;
     margin-top: 25px;
     color: grey;
+}
+
+li{
+    padding: 8px;
+    border-radius: 10px;
+    height: 30px;
+    box-shadow: 5px 5px 10px 5px grey;
+   }
+
+input{
+    width: 17vw;
+    height: 30px;
+    border-radius: 5px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+#addContact{
+
+   
+    height: 30px;
+    border-radius: 5px;
+    padding: 5px;
+    box-sizing: border-box;
+    color: whitesmoke;
+    background-color: darkcyan;
+
+}
+
+#delButton{
+
+    border-radius: 5px;
+    height: 20px;
+    background-color: red;
+    color: white;
+
 }

@@ -12,6 +12,7 @@ const port = 8000;
 
 const db = require("./config/mongoose");
 
+
 const Contact = require('./models/contact')
 
 //moving on we need to fire up express to use it functionalities
@@ -96,18 +97,33 @@ let contactList = [
 
 
 
-//THIS IS A CONTROLLER
+//THIS IS A CONTROLLER to fetch data from the hard coded server or MongoDB 
 app.get('/', function(req, res){
     // console.log(req);
     // console.log(__dirname); the folder in which our app is running
     // console.log(__filename); the entry file of our application
 
-
     //To send a data, we will create an object with key value pairs. 
     //This is kinda same as passing props in react JS
-    return res.render('index', {
-        title: 'My Contacts List',
-        contacts_List : contactList
+
+    /*contact.find is a function to lookup for data in the database.
+    -By Default it takes two arguments, one is query and other one is a function.
+    -Query is to filter out the data we are searching for.
+    -The other argument is a function. This function by default takes in two arguments.
+    -First is an error(if any). Next is the response we are getting from the request,
+     sent to the server through the database.
+    -Rest is same as returning a response by rendering data in the browser*/
+    Contact.find({},function(err,contacts){
+
+        if (err){
+            console.log(`There is an error which is ${err}`);
+            return
+        };
+
+        return res.render('index', {
+            title: 'My Contacts List',
+            contacts_List : contacts
+        });
     });
 });
 
@@ -134,10 +150,34 @@ app.get('/playground', function(req,res){
 
 app.post('/create_contact', function(req, res){
    //for now we are just redirecting the user to some other page.
-   console.log(req.body);
-   contactList= [...contactList,req.body];
+    //    contactList= [...contactList,req.body];
    console.log(contactList);
-    return res.redirect("/"); //after the request is completed, please redirect me to this route. "/" this homes and "back" also means home
+
+
+   //now to create a contact and save it in the database, we need to do contact.create
+   /*anyVariable.create() by default takes in two arguments, the first one is the data from the server
+   second one is a callBack function.
+   This callback function is to handle the error if any. It by default takes in two arguments again,
+   The first one is the error and the second one it the just created instance of the schema*/
+
+   Contact.create({
+    name: req.body.name,
+    phone: req.body.phone
+   }, function(err,newContact){
+
+    if(err){
+        console.log("Error in creating a contact");
+        return
+    }
+
+    console.log("******" , newContact);
+    return res.redirect("back");
+
+
+   });
+
+
+    //after the request is completed, please redirect me to this route. "/" this homes and "back" also means home
 });
 
 
@@ -145,22 +185,21 @@ app.post('/create_contact', function(req, res){
 
 app.get('/delete-contact', function(req, res){
 
-    //getting string from the url
-    // let phone = req.params.phone;
-
-
-    //now let us use it in query parameter.
-    //getting query from the url
-    let phone = req.query.phone;
-    contactIndex = contactList.findIndex(contact => contact.phone == phone);
-
-    if(contactIndex != -1){
-        contactList.splice(contactIndex, 1);
-    };
+    //get the id from the query params in url
+    let id = req.query.id
+   
+    /*now we have to find the contact in te database to match with this id
+    //anyVariable.findByIdAndDelete is a query that is provided by ROBO 3T,
+    and this query helps us to find data from the database and delete it.
+    There are many such types of queries and we can know about it from the documentation.*/
+    Contact.findByIdAndDelete(id, function(err){
+        if(err){
+            console.log("Error in deleting an object in database");
+        }
+        return
+    })
 
     return res.redirect("/");
-
-    
 });
 
 app.listen(port, function(err){
